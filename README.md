@@ -119,12 +119,5 @@ The script prints deployed addresses for:
 6. If failed:
    - users call `refund()` on `TokenSale`
 
-## MVP Limitations
 
-- No whitelist / signature gating
-- No per-user allocation cap
-- No pause/emergency controls
-- No admin fee model
-- No frontend/indexer in this repository
 
-Use this as a starter implementation and extend based on your launch requirements.
