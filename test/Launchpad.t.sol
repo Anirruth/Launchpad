@@ -129,4 +129,22 @@ contract LaunchpadTest is Test {
         uint256 afterBal = raiseToken.balanceOf(buyer);
         assertEq(afterBal - beforeBal, raiseAmount);
     }
+
+    function testFinalizeRevertsWhenVaultUnderfunded() public {
+        (TokenSale sale,, uint256 startTime, uint256 endTime) = _createSale(100e18, 1_000e18);
+
+        uint256 raiseAmount = 200e18;
+        raiseToken.mint(buyer, raiseAmount);
+
+        vm.startPrank(buyer);
+        raiseToken.approve(address(sale), raiseAmount);
+        vm.warp(startTime + 1);
+        sale.buy(raiseAmount);
+        vm.stopPrank();
+
+        vm.warp(endTime + 1);
+        vm.prank(creator);
+        vm.expectRevert("Insufficient sale token liquidity");
+        sale.finalize();
+    }
 }

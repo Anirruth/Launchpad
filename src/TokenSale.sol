@@ -89,12 +89,17 @@ contract TokenSale is Ownable, ReentrancyGuard {
             "Sale still active"
         );
 
-        finalized = true;
-
         if (totalRaised >= softCap) {
+            uint256 requiredSaleTokens = (totalRaised * 1e18) / price;
+            require(
+                saleToken.balanceOf(address(vestingVault)) >= requiredSaleTokens,
+                "Insufficient sale token liquidity"
+            );
+            finalized = true;
             raiseToken.safeTransfer(treasury, totalRaised);
             emit Finalized(true, totalRaised);
         } else {
+            finalized = true;
             saleFailed = true;
             emit Finalized(false, totalRaised);
         }
