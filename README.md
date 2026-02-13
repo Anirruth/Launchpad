@@ -1,10 +1,10 @@
 # Launchpad MVP
 
-A minimal token launchpad built with Foundry.
+A token launchpad built with Foundry.
 
-This MVP includes:
+This includes:
 - Sale creation via factory
-- Basic buy flow with hard cap
+- Buy flow with hard cap
 - Finalization with soft cap success/fail
 - Refund flow when soft cap is not met
 - Vesting-based token claims on successful sales
